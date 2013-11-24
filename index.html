@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>Cookie Clicker | AP Statistics Turkey Trot 2013</title>
-    <link href="http://fonts.googleapis.com/css?family=Kavoon&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Kavoon&amp;subset=latin,latin-ext" rel="stylesheet"
+          type="text/css">
     <link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="css/main.css">
     <script src="js/jquery-1.10.2.min.js"></script>
@@ -14,16 +15,30 @@
     <div class="container" id="main">
         <section>
             <h2>Login</h2>
+            <div class="inner">
+                <span id="signinButton">
+                    <span
+                        class="g-signin"
+                        data-callback="signinCallback"
+                        data-clientid="993284866388-pcm5tae9f30762mugjoltji2amkcab7s.apps.googleusercontent.com"
+                        data-cookiepolicy="single_host_origin"
+                        data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                        data-scope="https://www.googleapis.com/auth/plus.login">
+                    </span>
+                </span>
+            </div>
         </section>
         <section>
             <h2>Click</h2>
+
             <div id="clicker">
                 <div id="clicker-score"><span id="clicker-score-num">18,000,000,000</span>
-                    <br />
+                    <br/>
                     cookies
                     <div id="clicker-cps">per second: <span id="clicker-cps-num">0</span></div>
                 </div>
                 <a id="clicker-cookie" href="#"></a>
+
                 <div id="clicker-cookie-shadow"></div>
             </div>
         </section>
@@ -37,5 +52,18 @@
         Footer Content
     </div>
 </footer>
+
+<!-- Google+ Sign-In -->
+<script type="text/javascript">
+    (function () {
+        var po = document.createElement('script');
+        po.type = 'text/javascript';
+        po.async = true;
+        po.src = 'https://apis.google.com/js/client:plusone.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
 </body>
 </html>

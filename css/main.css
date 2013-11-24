@@ -24,6 +24,10 @@ body {
     margin-bottom: 50px;
 }
 
+#main section .inner {
+    text-align: center;
+}
+
 #main section > h2 {
     position: relative;
     padding-left: 15px;
