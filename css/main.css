@@ -1,7 +1,103 @@
+html,
+body {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+}
+
 body {
     background-color: #ddd;
 }
 
-.container {
+#main {
     background-color: white;
+    border-left: 5px solid #777;
+    counter-reset: sections 0;
+}
+
+#main section {
+    margin-bottom: 50px;
+}
+
+#main section > h2 {
+    position: relative;
+    padding-left: 15px;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+#main section > h2:before {
+    counter-increment: sections 1;
+    content: counter(sections);
+    position: absolute;
+    left: -43px;
+    top: -10px;
+    background-color: #777777;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 35px;
+    line-height: 50px;
+    border-radius: 50%;
+    color: white;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto;
+    /* Negative indent footer by its height */
+    margin: 0 auto -60px;
+    /* Pad bottom by footer height */
+    padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+#clicker {
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    background: url(../img/bgBlue.jpg);
+    position: relative;
+}
+
+#clicker-score {
+    font-family: 'Kavoon', Georgia,serif;
+    font-size: 28px;
+    text-shadow: 0px 0px 4px #000;
+    color: #fff;
+    background: rgba(0,0,0,0.4);
+    text-align: center;
+    line-height: 1;
+    padding: 2px 0;
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 100%;
+}
+
+#clicker-cps {
+    font-size: 50%;
+}
+
+#clicker-cookie {
+    display: block;
+    background: url(../img/perfectCookie.png) no-repeat center;
+    background-size: 100% 100%;
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    top: 170px;
+    left: 50%;
+    margin-left: -125px;
+    border-radius: 50%;
+}
+
+#clicker-cookie:active {
+    background-size: 90% 90%;
 }
