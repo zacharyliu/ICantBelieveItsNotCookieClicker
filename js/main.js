@@ -44,11 +44,24 @@ var scopes = 'email';
 			if (timeron==true && fake==false) {
 				scorePlusOne();
 			}
+        });
+        $('#loginBtn').click(function() {
+            doLogin();
+            return false;
+        });
+        $('#logoutBtn').click(function() {
+            doLogout();
+            return false;
+        });
+
+        // hidden iframe onLoad handler
+        $('#hiddenIframe').load(function() {
+            checkAuth();
         })
     }
     $(function() {
         init();
-    })
+    });
 	
 	function animateMeter(time, callback) {
 		var a;
@@ -79,28 +92,38 @@ var scopes = 'email';
 		console.log(score);
 		$('#sec3').slideDown();
 	}
-})();
 
-function handleClientLoad() {
-    gapi.client.setApiKey(apiKey);
-    window.setTimeout(checkAuth, 1);
-}
-
-function checkAuth() {
-    gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
-}
-
-function handleAuthResult(authResult) {
-    if (authResult && !authResult.error) {
-        // Auth successful
-        console.log('Logged in');
-    } else {
-        // Auth not successful
-        console.log('Not logged in');
+    window.handleClientLoad = function () {
+        gapi.client.setApiKey(apiKey);
+        window.setTimeout(checkAuth, 1);
     }
-}
 
-function handleAuthClick(e) {
-    gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
-    return false;
-}
+    function checkAuth() {
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+    }
+
+    function handleAuthResult(authResult) {
+        if (authResult && !authResult.error) {
+            // Auth successful
+            console.log('Logged in');
+            $('#loginBtn').addClass('disabled');
+            $('#logoutBtn').removeClass('disabled');
+            return true;
+        } else {
+            // Auth not successful
+            console.log('Not logged in');
+            $('#logoutBtn').addClass('disabled');
+            $('#loginBtn').removeClass('disabled');
+            return false;
+        }
+    }
+
+    function doLogin() {
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+    }
+
+    function doLogout() {
+        $('#hiddenIframe').attr('src', 'https://accounts.google.com/Logout');
+    }
+
+})();
