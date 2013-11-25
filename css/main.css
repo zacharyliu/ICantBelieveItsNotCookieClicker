@@ -2,57 +2,20 @@ body, h1, h2 {
     font-family: 'Kavoon', Georgia,serif;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     background-color: #266587;
     background: url(../img/bgBlue.jpg);
 }
 
-#main {
-    background-color: white;
-    border-left: 10px solid #633724;
-    counter-reset: sections 0;
-    box-shadow: 0 0 50px rgba(0,0,0,0.7);
-    padding: 0 30px;
-}
-
-#main section {
-    margin-bottom: 50px;
-	/*display: none;*/
-}
-/*#main section:first-child {*/
-	/*display: block;*/
-/*}*/
-
-#main section .inner {
-    text-align: center;
-}
-
-#main section > h2 {
-    position: relative;
-    letter-spacing: 1px;
-}
-
-#main section > h2:before {
-    counter-increment: sections 1;
-    content: counter(sections);
-    position: absolute;
-    left: -60px;
-    top: -10px;
-    background-color: #633724;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    font-size: 35px;
-    line-height: 50px;
-    border-radius: 50%;
-    color: white;
-}
-
 #clicker {
     width: 100%;
-    height: 500px;
-    background: url(../img/bgBlue.jpg);
-    position: relative;
+    top: 0;
+    bottom: 50px;
+    position: absolute;
     box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
 }
 
@@ -66,7 +29,7 @@ body {
     padding: 2px 0;
     position: absolute;
     left: 0;
-    top: 50px;
+    top: 15%;
     width: 100%;
     z-index: 100;
 }
@@ -82,7 +45,7 @@ body {
     width: 250px;
     height: 250px;
     position: absolute;
-    top: 320px;
+    top: 50%;
     left: 50%;
     margin-top: -125px;
     margin-left: -125px;
@@ -96,7 +59,7 @@ body {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    top: 320px;
+    top: 50%;
     left: 50%;
     margin-top: -100px;
     margin-left: -100px;
@@ -105,7 +68,7 @@ body {
 }
 
 #clicker-cookie:active {
-    background-size: 90% 90%;
+    background-size: 95% 95%;
 }
 #timer {
 	-webkit-transition: none;
@@ -125,5 +88,10 @@ body {
 }
 
 #hiddenIframe {
+    display: none;
+}
+
+
+#loginBtn.disabled, #logoutBtn.disabled {
     display: none;
 }
