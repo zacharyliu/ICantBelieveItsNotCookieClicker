@@ -178,4 +178,11 @@ var scopes = 'email profile';
         $('#hiddenIframe').attr('src', 'https://accounts.google.com/Logout');
     }
 
+    function submit(callback) {
+        $.post('submit.php', {name: name, email: email, score: score}, function(data) {
+            if (typeof callback === 'function') {
+                callback();
+            }
+        });
+    }
 })();
