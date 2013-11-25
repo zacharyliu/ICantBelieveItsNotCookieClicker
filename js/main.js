@@ -51,8 +51,12 @@ var scopes = 'email';
         });
 		$('#startBtn').click(function() {
 			if (timeron==false && canstart==true) {
-				timeron=true;
-				animateMeter(30000, function(){timerDone()});
+				$('#counter').css('z-index',50);
+				countdown(3300, function() {
+					$('#counter').css('z-index','');
+					timeron=true;
+					animateMeter(30000, function(){timerDone()});
+				});			
 			}
 			return false;
 		});
@@ -84,6 +88,25 @@ var scopes = 'email';
 				t = Math.round(this.value/1000*100)/100;
 				t=t+' seconds remaining';
 				$('#time-left').text(t);
+			},
+			complete: callback
+		});
+	}
+	function countdown(time, callback) {
+		var a;
+		if (callback == null) {
+		  callback = function() {};
+		}
+		return a = $({
+		  value: time
+		}).animate({
+		  value: 0
+		}, {
+			duration: time,
+			easing: 'linear',
+			step: function() {
+				t=Math.round(this.value/1000);
+				$('#counter').text(t);
 			},
 			complete: callback
 		});

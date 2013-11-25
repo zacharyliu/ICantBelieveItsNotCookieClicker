@@ -81,6 +81,21 @@ body {
 	position: relative;
 	top: -20px;
 }
+#counter {
+	display: block;
+	width: 250px;
+	height: 250px;
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	margin-top: -125px;
+	margin-left: -125px;
+	z-index: -1;
+	font-size: 250px;
+	line-height:180px;
+	text-align: center;
+	color: white;
+}
 .progress {
 	margin-top:10px;
 	height: 30px;
