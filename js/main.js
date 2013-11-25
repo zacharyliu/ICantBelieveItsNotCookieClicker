@@ -55,6 +55,7 @@ var scopes = 'email profile';
         });
 		$('#startBtn').click(function() {
 			if (timeron==false && canstart==true) {
+				$('#startBtn').hide();
 				$('#counter').css('z-index',50);
 				$('#timer').css('width', '100%');
 				$('#time-left').text('30.00 seconds remaining');
@@ -106,9 +107,9 @@ var scopes = 'email profile';
 		return a = $({
 		  value: time
 		}).animate({
-		  value: 0
+		  value: 1000
 		}, {
-			duration: time,
+			duration: time-1000,
 			easing: 'linear',
 			step: function() {
 				t=Math.round(this.value/1000);
@@ -120,6 +121,7 @@ var scopes = 'email profile';
 	function timerDone() {
 		timeron=false;
 		canstart=true;
+		$('#startBtn').show();
 		$('#time-left').text('0 seconds remaining');
 		console.log(score);
 		$('#sec3').slideDown();
