@@ -29,7 +29,7 @@ body {
     padding: 2px 0;
     position: absolute;
     left: 0;
-    top: 15%;
+    top: 5%;
     width: 100%;
     z-index: 100;
 }
@@ -45,7 +45,7 @@ body {
     width: 250px;
     height: 250px;
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     margin-top: -125px;
     margin-left: -125px;
@@ -59,7 +59,7 @@ body {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    top: 50%;
+    top: 60%;
     left: 50%;
     margin-top: -100px;
     margin-left: -100px;
@@ -76,6 +76,10 @@ body {
     -ms-transition: none;
     -o-transition: none;
     transition: none;
+}
+#startBtn {
+	position: relative;
+	top: -20px;
 }
 .progress {
 	margin-top:10px;

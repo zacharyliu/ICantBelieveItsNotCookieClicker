@@ -40,11 +40,7 @@ var scopes = 'email profile';
 			var fake=false;
 			if (!e.which || typeof(e.originalEvent)==='undefined' || !(e.screenX>0) || !(e.screenY>0)) {
 				fake = true;
-			}
-			if (timeron==false && canstart==true && fake==false) {
-				timeron=true;
-				animateMeter(30000, function(){timerDone()});
-			}
+			}	
 			if (timeron==true && fake==false) {
 				scorePlusOne();
 			}
@@ -57,6 +53,13 @@ var scopes = 'email profile';
             doLogout();
             return false;
         });
+		$('#startBtn').click(function() {
+			if (timeron==false && canstart==true) {
+				timeron=true;
+				animateMeter(30000, function(){timerDone()});
+			}
+			return false;
+		});
 
         // hidden iframe onLoad handler
         $('#hiddenIframe').load(function() {
