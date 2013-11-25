@@ -1,6 +1,9 @@
+var timeron=false;
+var canstart=true;
 (function() {
     var score = 0;
     var scoreLastSecond = 0;
+	
     function scorePlusOne() {
         score += 1;
         scoreLastSecond += 1;
@@ -26,13 +29,48 @@
         // click handlers
         $('#clicker-cookie').click(function(e){
             e.preventDefault();
-            scorePlusOne();
+			if (timeron==false && canstart==true) {
+				timeron=true;
+				animateMeter(30000, function(){timerDone()});
+			}
+			if (timeron==true) {
+				scorePlusOne();
+			}
         })
     }
     $(function() {
         init();
     })
 })();
+
+function animateMeter(time, callback) {
+	var a;
+	if (callback == null) {
+	  callback = function() {};
+	}
+	return a = $({
+	  value: time
+	}).animate({
+	  value: 0
+	}, {
+		duration: time,
+		easing: 'linear',
+		step: function() {
+			var t=this.value/time*100;
+			$('#timer').css('width', t+'%')
+			t = Math.round(this.value/1000*100)/100;
+			t=t+' seconds remaining';
+			$('#time-left').text(t);
+		},
+		complete: callback
+	});
+}
+function timerDone() {
+	timeron=false;
+	canstart=false;
+	console.log($('#clicker-score-num').text());
+	$('#sec3').slideDown();
+}
 
 function signinCallback(authResult) {
     if (authResult['access_token']) {
