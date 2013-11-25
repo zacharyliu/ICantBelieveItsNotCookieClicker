@@ -1,3 +1,7 @@
+var clientId = '993284866388-pcm5tae9f30762mugjoltji2amkcab7s.apps.googleusercontent.com';
+var apiKey = 'AIzaSyADQ1i4UcYBXDDRQolmegnJuWNKJHFe4ac';
+var scopes = 'email';
+
 (function() {
 	var timeron=false;
 	var canstart=true;
@@ -77,17 +81,26 @@
 	}
 })();
 
-function signinCallback(authResult) {
-    if (authResult['access_token']) {
-        // Update the app to reflect a signed in user
-        // Hide the sign-in button now that the user is authorized, for example:
-//        document.getElementById('signinButton').setAttribute('style', 'display: none');
-    } else if (authResult['error']) {
-        // Update the app to reflect a signed out user
-        // Possible error values:
-        //   "user_signed_out" - User is signed-out
-        //   "access_denied" - User denied access to your app
-        //   "immediate_failed" - Could not automatically log in the user
-        console.log('Sign-in state: ' + authResult['error']);
+function handleClientLoad() {
+    gapi.client.setApiKey(apiKey);
+    window.setTimeout(checkAuth, 1);
+}
+
+function checkAuth() {
+    gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+}
+
+function handleAuthResult(authResult) {
+    if (authResult && !authResult.error) {
+        // Auth successful
+        console.log('Logged in');
+    } else {
+        // Auth not successful
+        console.log('Not logged in');
     }
+}
+
+function handleAuthClick(e) {
+    gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+    return false;
 }

@@ -16,56 +16,45 @@
         <section>
             <h2>Login</h2>
             <div class="inner">
-                <span id="signinButton">
-                    <span
-                        class="g-signin"
-                        data-callback="signinCallback"
-                        data-clientid="993284866388-pcm5tae9f30762mugjoltji2amkcab7s.apps.googleusercontent.com"
-                        data-cookiepolicy="single_host_origin"
-                        data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                        data-scope="https://www.googleapis.com/auth/plus.login">
-                    </span>
-                </span>
+                <div class="btn-group btn-group-lg">
+                    <a href="javascript:handleAuthClick();" class="btn btn-primary disabled" id="loginBtn">Log In</a>
+                    <a href="javascript:handleAuthClick();" class="btn btn-danger disabled" id="logoutBtn">Log Out</a>
+                </div>
             </div>
         </section>
-        <section id="sec2">
-            <h2>Click the Cookie as Fast as You Can!</h2>
+
+        <section>
+            <h2>Click!</h2>
+
+            <div>
+                <div class="progress">
+                    <div  id="timer" class="progress-bar"  role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="30" style="width: 100%">
+                    </div>
+                </div>
+                <div id="time-left">30.00 seconds remaining</div>
+            </div>
 
             <div id="clicker">
                 <div id="clicker-score"><span id="clicker-score-num">18,000,000,000</span>
                     <br/>
                     cookies
                     <div id="clicker-cps">per second: <span id="clicker-cps-num">0</span></div>
-					<div class="col-sm-8 col-sm-offset-2">
-						<div class="progress">
-						  <div  id="timer" class="progress-bar"  role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="30" style="width: 100%">
-						  </div>
-						</div>
-						<div id="time-left">30.00 seconds remaining</div>
-					</div>
                 </div>
-                <a id="clicker-cookie" href="#"></a>
 
+                <a id="clicker-cookie" href="#"></a>
                 <div id="clicker-cookie-shadow"></div>
             </div>
         </section>
-        <section id="sec3">
-            <h2><a>Log Out</a> or <a>Try Again</a></h2>
+
+        <section>
+            <h2>Finish</h2>
+            <a>Log Out</a> or <a>Try Again</a>
         </section>
     </div>
 </div>
 
-<!-- Google+ Sign-In -->
-<script type="text/javascript">
-    (function () {
-        var po = document.createElement('script');
-        po.type = 'text/javascript';
-        po.async = true;
-        po.src = 'https://apis.google.com/js/client:plusone.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(po, s);
-    })();
-</script>
+<!-- Google APIs Client Library -->
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 
 </body>
 </html>
