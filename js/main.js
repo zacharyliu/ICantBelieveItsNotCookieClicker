@@ -29,11 +29,15 @@ var canstart=true;
         // click handlers
         $('#clicker-cookie').click(function(e){
             e.preventDefault();
-			if (timeron==false && canstart==true) {
+			var fake=false;
+			if (!e.which || typeof(e.originalEvent)==='undefined' || !(e.screenX>0) || !(e.screenY>0)) {
+				fake = true;
+			}
+			if (timeron==false && canstart==true && fake==false) {
 				timeron=true;
 				animateMeter(30000, function(){timerDone()});
 			}
-			if (timeron==true) {
+			if (timeron==true && fake==false) {
 				scorePlusOne();
 			}
         })
