@@ -11,7 +11,7 @@ body {
     background: url(../img/bgBlue.jpg);
 }
 
-#clicker {
+#clicker , #instructions{
     width: 100%;
     top: 0;
     bottom: 50px;
