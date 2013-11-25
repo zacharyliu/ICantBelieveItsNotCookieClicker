@@ -117,7 +117,7 @@ var scopes = 'email profile';
 	}
 	function timerDone() {
 		timeron=false;
-		canstart=false;
+		canstart=true;
 		$('#time-left').text('0 seconds remaining');
 		console.log(score);
 		$('#sec3').slideDown();
