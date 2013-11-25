@@ -3,7 +3,9 @@ var apiKey = 'AIzaSyADQ1i4UcYBXDDRQolmegnJuWNKJHFe4ac';
 var scopes = 'email profile';
 
 (function() {
-	var timeron=false;
+    // TODO: consolidate state variables
+	var isRunning=false;
+    var isClickable=false;
 	var canstart=true;
     var score = 0;
     var scoreLastSecond = 0;
@@ -11,6 +13,8 @@ var scopes = 'email profile';
     var isLoggedIn = false;
     var name = '';
     var email = '';
+
+    var animations = [];
 	
     function scorePlusOne() {
         score += 1;
@@ -41,7 +45,7 @@ var scopes = 'email profile';
 			if (!e.which || typeof(e.originalEvent)==='undefined' || !(e.screenX>0) || !(e.screenY>0)) {
 				fake = true;
 			}	
-			if (timeron==true && fake==false) {
+			if (isClickable==true && fake==false) {
 				scorePlusOne();
 			}
         });
@@ -53,20 +57,30 @@ var scopes = 'email profile';
             doLogout();
             return false;
         });
+        // TODO: clean up round animation sequence
 		$('#startBtn').click(function() {
-			if (timeron==false && canstart==true) {
-				$('#startBtn').css('opacity',0);
-				$('#counter').css('z-index',50);
-				$('#timer').css('width', '100%');
-				$('#time-left').text('30.00 seconds remaining');
-				countdown(3300, function() {
-					$('#counter').css('z-index','');
-					timeron=true;
-					animateMeter(30000, function(){timerDone()});
-				});			
+			if (isRunning==false && canstart==true) {
+                isRunning=true;
+                scoreReset();
+                $("#clicker-score").removeClass('large');
+                switchRibbonItem('#clicker-timer-counter');
+				countdown(function() {
+                    switchRibbonItem('#clicker-timer-progress');
+                    $('#clicker-cookie').removeClass('disabled');
+                    isClickable = true;
+					animateMeter(30000, function() {
+                        isClickable = false;
+                        $('#startBtn').text('Play Again');
+                        $('#clicker-score').addClass('large');
+                        $('#clicker-cookie').addClass('disabled');
+                        switchRibbonItem('#clicker-timer-start');
+                        timerDone();
+                    });
+				});
 			}
 			return false;
 		});
+        switchRibbonItem('#clicker-timer-start');
 
         // hidden iframe onLoad handler
         $('#hiddenIframe').load(function() {
@@ -76,7 +90,12 @@ var scopes = 'email profile';
     $(function() {
         init();
     });
-	
+
+	function switchRibbonItem(id) {
+        var ids = "#clicker-timer-counter, #clicker-timer-start, #clicker-timer-progress";
+        $(ids).not(id).css('display', 'none');
+        $(id).css('display', 'block');
+    }
 	function animateMeter(time, callback) {
 		var a;
 		if (callback == null) {
@@ -90,47 +109,39 @@ var scopes = 'email profile';
 			duration: time,
 			easing: 'linear',
 			step: function() {
-				var t=this.value/time*100;
-				$('#timer').css('width', t+'%')
-				t = Math.round(this.value/1000*100)/100;
-				t=t+' seconds remaining';
-				$('#time-left').text(t);
+				var width = (1-this.value/time) * 100 + '%';
+				$('#timer').css('width', width);
+
+				var text = (this.value/1000).toFixed(1) + ' seconds remaining';
+				$('#time-left').text(text);
 			},
 			complete: callback
 		});
 	}
-	function countdown(time, callback) {
-		var a;
+	function countdown(callback) {
 		if (callback == null) {
 		  callback = function() {};
 		}
-		return a = $({
-		  value: time
-		}).animate({
-		  value: 1000
-		}, {
-			duration: time-1000,
+		$({value: 3}).animate({value: 0}, {
+			duration: 3000,
 			easing: 'linear',
 			step: function() {
-				t=Math.round(this.value/1000);
-				$('#counter').text(t);
+				$('#counter').text(Math.ceil(this.value));
 			},
 			complete: callback
 		});
 	}
 	function timerDone() {
-		timeron=false;
-		canstart=true;
-		$('#startBtn').css('opacity','');
-		$('#time-left').text('0 seconds remaining');
+		isRunning=false;
 		console.log(score);
-		$('#sec3').slideDown();
+        doSubmit();
 	}
 
-    window.handleClientLoad = function () {
+    function handleClientLoad() {
         gapi.client.setApiKey(apiKey);
         window.setTimeout(checkAuth, 1);
-    };
+    }
+    window.handleClientLoad = handleClientLoad;
 
     function checkAuth() {
         gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
@@ -178,7 +189,7 @@ var scopes = 'email profile';
         $('#hiddenIframe').attr('src', 'https://accounts.google.com/Logout');
     }
 
-    function submit(callback) {
+    function doSubmit(callback) {
         $.post('submit.php', {name: name, email: email, score: score}, function(data) {
             if (typeof callback === 'function') {
                 callback();

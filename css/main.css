@@ -11,7 +11,7 @@ body {
     background: url(../img/bgBlue.jpg);
 }
 
-#clicker , #instructions{
+#clicker, #instructions{
     width: 100%;
     top: 0;
     bottom: 50px;
@@ -35,10 +35,16 @@ body {
 
 #clicker-score {
     top: 5%;
+    transition: font-size 1s;
+}
+#clicker-score.large {
+    font-size: 50px;
 }
 
 #clicker-timer {
     bottom: 5%;
+    height: 100px;
+    padding: 50px;
 }
 
 
@@ -59,18 +65,25 @@ body {
     margin-left: -125px;
     border-radius: 50%;
     z-index: 20;
+    opacity: 1;
+}
+
+#clicker-cookie.disabled {
+    opacity: 0.6;
+    cursor: default;
+    background-size: 95% 95%;
 }
 
 #clicker-cookie-shadow {
     content: "";
     position: absolute;
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
     top: 50%;
     left: 50%;
-    margin-top: -100px;
-    margin-left: -100px;
+    margin-top: -110px;
+    margin-left: -110px;
     box-shadow: 0 0 300px #fff;
     z-index: 10;
 }
@@ -78,6 +91,11 @@ body {
 #clicker-cookie:active {
     background-size: 95% 95%;
 }
+
+#clicker-cookie:active.disabled {
+    background-size: 95% 95%;
+}
+
 #timer {
 	-webkit-transition: none;
     -moz-transition: none;
@@ -85,39 +103,40 @@ body {
     -o-transition: none;
     transition: none;
 }
+
+#clicker-timer-start {
+    margin-top: -25px;
+}
 #startBtn {
-	position: relative;
-	top: -20px;
+    font-size: 25px;
 }
-#counter {
-	display: block;
-	width: 250px;
-	height: 250px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-top: -125px;
-	margin-left: -125px;
-	z-index: -1;
-	font-size: 250px;
-	line-height:180px;
-	text-align: center;
-	color: white;
+
+#clicker-timer-counter {
+    text-align: center;
+    color: white;
+    line-height: 0;
+    font-size: 40px;
 }
-.progress {
-	margin-top:10px;
-	height: 30px;
+
+#clicker-timer-progress {
+	margin-top: -20px;
+	font-size: 25px;
+    text-align: center;
+    color: #172746;
+    text-shadow: 0 0 4px rgba(255,255,255,0.7);
 }
-#time-left {
-	position: relative;
-	top: -45px;
-	font-size: 20px;
+#clicker-timer .progress {
+    height: 40px;
+}
+#clicker-timer-progress #time-left {
+    height: 40px;
+    margin-top: -40px;
+    line-height: 0;
 }
 
 #hiddenIframe {
     display: none;
 }
-
 
 #loginBtn.disabled, #logoutBtn.disabled {
     display: none;
