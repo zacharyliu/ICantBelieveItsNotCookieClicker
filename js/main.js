@@ -1,12 +1,16 @@
 var clientId = '993284866388-pcm5tae9f30762mugjoltji2amkcab7s.apps.googleusercontent.com';
 var apiKey = 'AIzaSyADQ1i4UcYBXDDRQolmegnJuWNKJHFe4ac';
-var scopes = 'email';
+var scopes = 'email profile';
 
 (function() {
 	var timeron=false;
 	var canstart=true;
     var score = 0;
     var scoreLastSecond = 0;
+
+    var isLoggedIn = false;
+    var name = '';
+    var email = '';
 	
     function scorePlusOne() {
         score += 1;
@@ -134,14 +138,32 @@ var scopes = 'email';
             console.log('Logged in');
             $('#loginBtn').addClass('disabled');
             $('#logoutBtn').removeClass('disabled');
+            $('#loginStatus').text('Logging in...');
+            makeApiCall();
             return true;
         } else {
             // Auth not successful
             console.log('Not logged in');
             $('#logoutBtn').addClass('disabled');
             $('#loginBtn').removeClass('disabled');
+            $('#loginStatus').text('Not logged in. Log in now!');
+            isLoggedIn = false;
+            name = '';
+            email = '';
             return false;
         }
+    }
+
+    function makeApiCall() {
+        gapi.client.load('oauth2', 'v2', function() {
+            var request = gapi.client.oauth2.userinfo.get();
+            request.execute(function(resp) {
+                name = resp['name'];
+                email = resp['email'];
+                isLoggedIn = true;
+                $('#loginStatus').text('Logged in as ' + name);
+            });
+        });
     }
 
     function doLogin() {
