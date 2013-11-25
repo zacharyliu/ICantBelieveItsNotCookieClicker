@@ -100,7 +100,7 @@ body {
     width: 250px;
     height: 250px;
     position: absolute;
-    top: 300px;
+    top: 320px;
     left: 50%;
     margin-top: -125px;
     margin-left: -125px;
@@ -114,7 +114,7 @@ body {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    top: 300px;
+    top: 320px;
     left: 50%;
     margin-top: -100px;
     margin-left: -100px;
@@ -124,4 +124,15 @@ body {
 
 #clicker-cookie:active {
     background-size: 90% 90%;
+}
+#timer {
+	-webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+.progress {
+	margin-top:10px;
+	height: 30px;
 }
