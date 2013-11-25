@@ -85,6 +85,15 @@ var scopes = 'email profile';
         // hidden iframe onLoad handler
         $('#hiddenIframe').load(function() {
             checkAuth();
+        });
+
+        var resizeDelayedHandler;
+        $(window).resize(function() {
+            $('#loginBtn').popover('hide');
+            clearTimeout(resizeDelayedHandler);
+            resizeDelayedHandler = setTimeout(function() {
+                $('#loginBtn').popover('show');
+            }, 500);
         })
     }
     $(function() {
@@ -151,7 +160,7 @@ var scopes = 'email profile';
         if (authResult && !authResult.error) {
             // Auth successful
             console.log('Logged in');
-            $('#loginBtn').addClass('disabled');
+            $('#loginBtn').addClass('disabled').popover('destroy');
             $('#logoutBtn').removeClass('disabled');
             $('#loginStatus').text('Logging in...');
             makeApiCall();
@@ -160,7 +169,13 @@ var scopes = 'email profile';
             // Auth not successful
             console.log('Not logged in');
             $('#logoutBtn').addClass('disabled');
-            $('#loginBtn').removeClass('disabled');
+            $('#loginBtn').removeClass('disabled').popover({
+                title: 'Log In!',
+                content: 'Log in with your Google account before you play to save your score in the high score table.',
+                placement: 'top',
+                trigger: 'manual',
+                container: '.navbar .container'
+            }).popover('show');
             $('#loginStatus').text('Not logged in. Log in now!');
             isLoggedIn = false;
             name = '';
