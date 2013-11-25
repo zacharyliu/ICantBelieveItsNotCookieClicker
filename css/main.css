@@ -22,6 +22,10 @@ body {
 
 #main section {
     margin-bottom: 50px;
+	display: none;
+}
+#main section:first-child {
+	display: block;
 }
 
 #main section .inner {

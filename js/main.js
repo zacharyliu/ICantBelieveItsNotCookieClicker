@@ -67,6 +67,7 @@ function timerDone() {
 	timeron=false;
 	canstart=false;
 	console.log($('#clicker-score-num').text());
+	$('#sec3').slideDown();
 }
 
 function signinCallback(authResult) {
