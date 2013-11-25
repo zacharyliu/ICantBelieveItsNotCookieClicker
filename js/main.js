@@ -55,7 +55,7 @@ var scopes = 'email profile';
         });
 		$('#startBtn').click(function() {
 			if (timeron==false && canstart==true) {
-				$('#startBtn').hide();
+				$('#startBtn').css('opacity',0);
 				$('#counter').css('z-index',50);
 				$('#timer').css('width', '100%');
 				$('#time-left').text('30.00 seconds remaining');
@@ -121,7 +121,7 @@ var scopes = 'email profile';
 	function timerDone() {
 		timeron=false;
 		canstart=true;
-		$('#startBtn').show();
+		$('#startBtn').css('opacity','');
 		$('#time-left').text('0 seconds remaining');
 		console.log(score);
 		$('#sec3').slideDown();
