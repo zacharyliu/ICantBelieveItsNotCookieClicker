@@ -59,6 +59,8 @@ function animateMeter(time, callback) {
 			var t=this.value/time*100;
 			$('#timer').css('width', t+'%')
 			t = Math.round(this.value/1000*100)/100;
+			t=t+' seconds remaining';
+			$('#time-left').text(t);
 		},
 		complete: callback
 	});
